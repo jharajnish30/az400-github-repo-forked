@@ -11,21 +11,21 @@ on:
 
 jobs:
   build:
-    uses: ./.github/workflows/reusable/build.yml
+    uses: ./.github/workflows/build.yml
     secrets:
       DEMO_API_KEY: ${{ secrets.DEMO_API_KEY }}
 
   tests:
     needs: build
-    uses: ./.github/workflows/reusable/tests.yml
+    uses: ./.github/workflows/tests.yml
 
   lint:
     needs: tests
-    uses: ./.github/workflows/reusable/lint.yml
+    uses: ./.github/workflows/lint.yml
 
   deploy:
     needs: lint
     if: github.ref == 'refs/heads/main'
-    uses: ./.github/workflows/reusable/deploy.yml
+    uses: ./.github/workflows/deploy.yml
     secrets:
       PROD_CONNECTION_STRING: ${{ secrets.PROD_CONNECTION_STRING }}
